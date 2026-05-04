@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -66,50 +67,50 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
-
+  --button-outline: rgba(0,0,0,.10);
+  --badge-outline: rgba(0,0,0,.05);
   --opaque-button-border-intensity: -8;
+  --elevate-1: rgba(0,0,0,.03);
+  --elevate-2: rgba(0,0,0,.08);
 
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
-
-  --background: 210 40% 98%; /* Slate 50 */
+  /* Richer slate-indigo background instead of flat white */
+  --background: 220 33% 97%;
   --foreground: 222 47% 11%;
 
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 221 83% 53%;
+  --border: 220 24% 90%;
+  --input: 220 24% 90%;
+  --ring: 173 80% 40%;
 
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
-  --card-border: 214 32% 91%;
+  --card-border: 220 24% 90%;
 
-  --sidebar: 210 40% 96%;
+  --sidebar: 220 33% 97%;
   --sidebar-foreground: 222 47% 11%;
-  --sidebar-border: 214 32% 91%;
+  --sidebar-border: 220 24% 90%;
   --sidebar-primary: 222 47% 11%;
   --sidebar-primary-foreground: 210 40% 98%;
-  --sidebar-accent: 210 40% 96%;
+  --sidebar-accent: 220 33% 97%;
   --sidebar-accent-foreground: 222 47% 11%;
-  --sidebar-ring: 221 83% 53%;
+  --sidebar-ring: 173 80% 40%;
 
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
-  --popover-border: 214 32% 91%;
+  --popover-border: 220 24% 90%;
 
-  --primary: 222 47% 11%; /* Navy */
+  /* Deep navy — same as before */
+  --primary: 222 47% 11%;
   --primary-foreground: 210 40% 98%;
 
-  --secondary: 210 40% 96%;
+  --secondary: 220 33% 95%;
   --secondary-foreground: 222 47% 11%;
 
-  --muted: 210 40% 96%;
+  --muted: 220 33% 95%;
   --muted-foreground: 215 16% 47%;
 
-  --accent: 173 80% 40%; /* Teal Accent */
+  /* Vivid teal */
+  --accent: 173 80% 40%;
   --accent-foreground: 222 47% 11%;
 
   --destructive: 0 84% 60%;
@@ -121,15 +122,16 @@
   --chart-4: 43 100% 50%;
   --chart-5: 27 87% 67%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --radius: 0.5rem;
-  
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius: 0.625rem;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 25px -3px rgb(0 0 0 / 0.10), 0 4px 10px -4px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 20px 40px -5px rgb(0 0 0 / 0.14), 0 8px 16px -6px rgb(0 0 0 / 0.08);
 
   --tracking-normal: 0em;
   --spacing: 0.25rem;
@@ -144,32 +146,31 @@
 }
 
 .dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-
+  --button-outline: rgba(255,255,255,.10);
+  --badge-outline: rgba(255,255,255,.05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --elevate-1: rgba(255,255,255,.04);
+  --elevate-2: rgba(255,255,255,.09);
 
-  --background: 222 47% 11%;
-  --foreground: 210 40% 98%;
+  --background: 222 47% 8%;
+  --foreground: 210 40% 96%;
 
   --border: 217 32% 17%;
   --input: 217 32% 17%;
-  --ring: 212 96% 78%;
+  --ring: 173 80% 40%;
 
   --card: 222 47% 11%;
   --card-foreground: 210 40% 98%;
   --card-border: 217 32% 17%;
 
-  --sidebar: 222 47% 11%;
+  --sidebar: 222 47% 8%;
   --sidebar-foreground: 210 40% 98%;
   --sidebar-border: 217 32% 17%;
   --sidebar-primary: 210 40% 98%;
   --sidebar-primary-foreground: 222 47% 11%;
   --sidebar-accent: 217 32% 17%;
   --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-ring: 212 96% 78%;
+  --sidebar-ring: 173 80% 40%;
 
   --popover: 222 47% 11%;
   --popover-foreground: 210 40% 98%;
@@ -203,5 +204,65 @@
   }
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+
+  /* Improved scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(220 24% 82%); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(220 24% 70%); }
 }
+
+/* Subtle dot-grid background pattern */
+.bg-dot-grid {
+  background-color: hsl(var(--background));
+  background-image: radial-gradient(circle, hsl(220 24% 85%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Soft gradient overlays for cards */
+.card-glow-teal {
+  box-shadow: 0 0 0 1px hsl(173 80% 40% / 0.15), 0 4px 20px hsl(173 80% 40% / 0.10);
+}
+
+.card-glow-navy {
+  box-shadow: 0 0 0 1px hsl(222 47% 11% / 0.12), 0 8px 30px hsl(222 47% 11% / 0.10);
+}
+
+/* Animated gradient for header */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.header-gradient {
+  background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 47% 16%) 40%, hsl(222 40% 14%) 70%, hsl(173 50% 12%) 100%);
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Interest-to-capital bar */
+.ratio-bar-bg { background: hsl(0 84% 92%); border-radius: 99px; overflow: hidden; }
+.ratio-bar-fill { background: hsl(173 80% 40%); height: 100%; border-radius: 99px; transition: width 0.4s ease; }
+
+/* Rank badge glow for #1 */
+.rank-1-glow {
+  box-shadow: 0 0 0 2px hsl(173 80% 40% / 0.30), 0 4px 16px hsl(173 80% 40% / 0.15);
+}
+
+/* Number fade-in */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-animate { animation: count-up 0.5s ease forwards; }
+
+/* Export button pulse */
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(173 80% 40% / 0.4); }
+  50% { box-shadow: 0 0 0 6px hsl(173 80% 40% / 0); }
+}
+.pulse-export { animation: pulse-border 2.5s ease-in-out infinite; }
