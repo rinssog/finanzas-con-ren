@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import { CreditCard, Calculator, Lightbulb, Building2, BarChart3, ArrowLeft } from 'lucide-react';
+import { CreditCard, Calculator, Building2, BarChart3 } from 'lucide-react';
 import { CardRatesTable } from '@/components/CardRatesTable';
 import { DebtCalculator } from '@/components/DebtCalculator';
 import { DebtStrategyTips } from '@/components/DebtStrategyTips';
+import { CuotasSimulator } from '@/components/CuotasSimulator';
 
 export default function Tarjetas() {
   return (
@@ -67,7 +68,7 @@ export default function Tarjetas() {
                   <span className="bg-white/10 text-white/80 text-xs font-semibold px-3 py-1.5 rounded-full">Visa · Mastercard · Amex</span>
                   <span className="bg-accent/20 text-accent text-xs font-semibold px-3 py-1.5 rounded-full">Bola de nieve</span>
                   <span className="bg-emerald-500/20 text-emerald-400 text-xs font-semibold px-3 py-1.5 rounded-full">Avalancha de deuda</span>
-                  <span className="bg-violet-500/20 text-violet-400 text-xs font-semibold px-3 py-1.5 rounded-full">Consolidación</span>
+                  <span className="bg-violet-500/20 text-violet-400 text-xs font-semibold px-3 py-1.5 rounded-full">Cuotas vs. préstamo</span>
                 </div>
               </div>
             </div>
@@ -89,7 +90,7 @@ export default function Tarjetas() {
           <CardRatesTable />
         </motion.section>
 
-        {/* Section 2: Debt calculator */}
+        {/* Section 2: Cuotas vs Préstamo */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,20 +100,35 @@ export default function Tarjetas() {
             <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center">
               <span className="text-accent font-black text-xs">2</span>
             </div>
-            <h2 className="text-lg font-bold text-slate-800">Calculadora de cancelación de deudas</h2>
+            <h2 className="text-lg font-bold text-slate-800">¿Cuotas con tarjeta o préstamo personal?</h2>
           </div>
-          <DebtCalculator />
+          <CuotasSimulator />
         </motion.section>
 
-        {/* Section 3: Tips */}
+        {/* Section 3: Debt calculator */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
           <div className="flex items-center gap-2 mb-4">
+            <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center">
+              <span className="text-accent font-black text-xs">3</span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-800">Calculadora de cancelación de deudas</h2>
+          </div>
+          <DebtCalculator />
+        </motion.section>
+
+        {/* Section 4: Tips */}
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
+        >
+          <div className="flex items-center gap-2 mb-4">
             <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center">
-              <span className="text-amber-600 font-black text-xs">3</span>
+              <span className="text-amber-600 font-black text-xs">4</span>
             </div>
             <h2 className="text-lg font-bold text-slate-800">Estrategias y consejos para salir de deudas</h2>
           </div>
