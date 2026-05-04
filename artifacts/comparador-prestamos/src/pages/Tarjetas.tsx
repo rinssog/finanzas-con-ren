@@ -5,6 +5,7 @@ import { CardRatesTable } from '@/components/CardRatesTable';
 import { DebtCalculator } from '@/components/DebtCalculator';
 import { DebtStrategyTips } from '@/components/DebtStrategyTips';
 import { CuotasSimulator } from '@/components/CuotasSimulator';
+import { ConsolidacionSimulator } from '@/components/ConsolidacionSimulator';
 
 export default function Tarjetas() {
   return (
@@ -90,22 +91,24 @@ export default function Tarjetas() {
           <CardRatesTable />
         </motion.section>
 
-        {/* Section 2: Cuotas vs Préstamo */}
+        {/* Section 2: Consolidación – deuda rojo vs préstamo verde */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center">
-              <span className="text-accent font-black text-xs">2</span>
+            <div className="w-7 h-7 rounded-full bg-rose-100 flex items-center justify-center">
+              <span className="text-rose-600 font-black text-xs">2</span>
             </div>
-            <h2 className="text-lg font-bold text-slate-800">¿Cuotas con tarjeta o préstamo personal?</h2>
+            <h2 className="text-lg font-bold text-slate-800">
+              ¿Seguir financiando con tarjeta o tomar un préstamo para cancelarla?
+            </h2>
           </div>
-          <CuotasSimulator />
+          <ConsolidacionSimulator />
         </motion.section>
 
-        {/* Section 3: Debt calculator */}
+        {/* Section 3: Cuotas vs Préstamo */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,20 +118,35 @@ export default function Tarjetas() {
             <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center">
               <span className="text-accent font-black text-xs">3</span>
             </div>
-            <h2 className="text-lg font-bold text-slate-800">Calculadora de cancelación de deudas</h2>
+            <h2 className="text-lg font-bold text-slate-800">¿Cuotas con tarjeta o préstamo para una compra nueva?</h2>
           </div>
-          <DebtCalculator />
+          <CuotasSimulator />
         </motion.section>
 
-        {/* Section 4: Tips */}
+        {/* Section 4: Debt calculator */}
         <motion.section
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.25 }}
         >
           <div className="flex items-center gap-2 mb-4">
+            <div className="w-7 h-7 rounded-full bg-accent/15 flex items-center justify-center">
+              <span className="text-accent font-black text-xs">4</span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-800">Calculadora de bola de nieve / avalancha</h2>
+          </div>
+          <DebtCalculator />
+        </motion.section>
+
+        {/* Section 5: Tips */}
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-4">
             <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center">
-              <span className="text-amber-600 font-black text-xs">4</span>
+              <span className="text-amber-600 font-black text-xs">5</span>
             </div>
             <h2 className="text-lg font-bold text-slate-800">Estrategias y consejos para salir de deudas</h2>
           </div>
