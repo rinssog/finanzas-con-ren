@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'wouter';
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsTable } from '@/components/ResultsTable';
 import { SummaryCards } from '@/components/SummaryCards';
@@ -8,7 +9,7 @@ import { AmortizationSchedule } from '@/components/AmortizationSchedule';
 import { personalBanks, hipotecarioBanks, LoanType, BankRate } from '@/data/banks';
 import { buildAmortizationSchedule, getFirstPayment, getAveragePayment, AmortizationMethod } from '@/lib/calculations';
 import { exportComparisonPdf } from '@/lib/pdfExport';
-import { Building2, FileDown, BarChart3 } from 'lucide-react';
+import { Building2, FileDown, BarChart3, Calculator, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export interface CalculatedResult extends BankRate {
@@ -79,6 +80,20 @@ export default function Comparador() {
           </div>
         </div>
       </header>
+
+      {/* Nav tabs */}
+      <div className="bg-white border-b border-slate-200 shadow-sm sticky top-[73px] z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex">
+          <a className="flex items-center gap-2 px-5 py-3.5 text-sm font-bold text-accent border-b-2 border-accent transition-all">
+            <Calculator size={15} />
+            Préstamos
+          </a>
+          <Link href="/tarjetas" className="flex items-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-500 hover:text-slate-700 border-b-2 border-transparent hover:border-slate-300 transition-all">
+            <CreditCard size={15} />
+            Tarjetas
+          </Link>
+        </div>
+      </div>
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-24 flex flex-col gap-8">
         {/* Calculator card */}

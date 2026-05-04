@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Comparador from "@/pages/Comparador";
+import Tarjetas from "@/pages/Tarjetas";
 
 const queryClient = new QueryClient();
 
@@ -11,6 +12,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Comparador} />
+      <Route path="/tarjetas" component={Tarjetas} />
       <Route component={NotFound} />
     </Switch>
   );
