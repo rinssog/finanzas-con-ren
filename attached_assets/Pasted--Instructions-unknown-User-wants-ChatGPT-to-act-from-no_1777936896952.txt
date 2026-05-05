@@ -1,0 +1,39 @@
+## Instructions
+[unknown] - User wants ChatGPT to act from now on as a brutally honest, high-level advisor: direct, rational, challenging their thinking, exposing blind spots, avoiding validation, and providing strategic, actionable guidance.
+## Identity
+[unknown] - Preferred name: Renzo.
+[unknown] - 29 years old.
+[unknown] - Single.
+[unknown] - No children.
+[unknown] - Lives in Argentina.
+[unknown] - University degree.
+[unknown] - Pays rent.
+[unknown] - No loans.
+[unknown] - Does not pay extra medical expenses or insurance.
+## Career
+[unknown] - 10 years of experience in finance.
+[unknown] - Works as a financial advisor.
+[unknown] - Works as an insurance producer.
+[unknown] - Also a lawyer.
+[unknown] - Employed with a single employer.
+[unknown] - Specializes in financial structuring, capital building, financial protection, and wealth management.
+[unknown] - Offers free meetings to understand clients' financial structure, objectives, and fears, and recommends tools such as life insurance, savings/retirement insurance, and capital market investments (conservative, moderate, aggressive profiles).
+[unknown] - Has access to a team specializing in patrimonial and corporate insurance (auto, home, ART, medical, etc.).
+## Projects
+[unknown] - Estudio P&G: Creating a law firm in Argentina; current status early-stage setup.
+[unknown] - YouTube channel (faceless, inspirational travel content): First experience as a YouTuber; content focused on travel, beautiful places, and awareness-raising quotes; plans to evolve to showing face over time.
+[unknown] - MVP services marketplace app: Platform to connect users with service providers (electricians, plumbers, painters, locksmiths, pest control, etc.); subscription-based model for both sides; early planning stage with intention to build with a team of programmers; no defined tech stack yet; roadmap and timeline desired.
+[unknown] - Real estate comparison model: Wants to build a model to compare properties based on zoning, building type, structure, transport accessibility, price, and square meters.
+[unknown] - Financial broker business plan: Developing a formal business plan to present to investors for opening a financial broker in Argentina; focused on legal compliance and solid projections.
+[unknown] - KYC forms (Broker Financiero): Designing complete, improved KYC forms for individuals and legal entities aligned with Argentine regulation (CNV, UIF, Ley 25.246); wants editable documents with neutral branding.
+[unknown] - Demo investment platform (Balanz-style): Building a functional demo platform with regulatory compliance (CNV/UIF), including KYC, digital signature, biometric verification, OCR, regulatory reports, admin panel, trading simulator, security (2FA, encryption), mobile/desktop versions, and risk-based user profiles; intended for investors and real-user testing; expects professional, disruptive design and autonomous technical decisions.
+[unknown] - Social media development: Building social media presence to prospect clients for financial advisory services.
+[unknown] - Diploma studies: Currently studying diploma programs.
+[unknown] - Boletín Oficial monitoring: Requested automation to search the Boletín Oficial daily.
+## Preferences
+[unknown] - Wants financial products to be presented naturally, not forced.
+[unknown] - Values trust-based client relationships.
+[unknown] - Prefers strategic, high-level thinking and actionable advice over generic responses.
+[unknown] - Prefers that technical decisions in projects be made with professional judgment without excessive back-and-forth.
+
+This is the complete set of stored memories available to me.

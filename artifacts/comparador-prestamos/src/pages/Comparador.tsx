@@ -9,7 +9,7 @@ import { AmortizationSchedule } from '@/components/AmortizationSchedule';
 import { personalBanks, hipotecarioBanks, LoanType, BankRate } from '@/data/banks';
 import { buildAmortizationSchedule, getFirstPayment, getAveragePayment, AmortizationMethod } from '@/lib/calculations';
 import { exportComparisonPdf } from '@/lib/pdfExport';
-import { Building2, FileDown, BarChart3, Calculator, CreditCard } from 'lucide-react';
+import { Building2, FileDown, BarChart3, Calculator, CreditCard, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export interface CalculatedResult extends BankRate {
@@ -66,13 +66,15 @@ export default function Comparador() {
       <header className="header-gradient text-primary-foreground py-5 px-6 sticky top-0 z-20 shadow-xl border-b border-white/5">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="bg-accent/20 backdrop-blur-sm p-2.5 rounded-xl border border-accent/30">
-              <Building2 size={22} className="text-accent" />
-            </div>
-            <div>
-              <h1 className="text-xl font-black tracking-tight leading-none">ComparaYa</h1>
-              <p className="text-primary-foreground/60 text-xs mt-0.5 font-medium">Tu asesor financiero de bolsillo</p>
-            </div>
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <span className="text-white font-black text-xs">RG</span>
+              </div>
+              <div>
+                <h1 className="text-base font-black tracking-tight leading-none">ComparaYa</h1>
+                <p className="text-primary-foreground/50 text-xs mt-0.5 font-medium">por Finanzas con Ren</p>
+              </div>
+            </Link>
           </div>
           <div className="hidden sm:flex items-center gap-2 text-xs text-primary-foreground/50">
             <BarChart3 size={13} />
@@ -83,12 +85,16 @@ export default function Comparador() {
 
       {/* Nav tabs */}
       <div className="bg-white border-b border-slate-200 shadow-sm sticky top-[73px] z-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex">
-          <a className="flex items-center gap-2 px-5 py-3.5 text-sm font-bold text-accent border-b-2 border-accent transition-all">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center">
+          <Link href="/" className="flex items-center gap-1.5 px-4 py-3.5 text-xs font-semibold text-slate-400 hover:text-slate-600 border-b-2 border-transparent hover:border-slate-200 transition-all mr-1">
+            <Home size={13} /> Inicio
+          </Link>
+          <div className="w-px h-4 bg-slate-200 mr-1" />
+          <span className="flex items-center gap-2 px-5 py-3.5 text-sm font-bold text-accent border-b-2 border-accent transition-all">
             <Calculator size={15} />
             Préstamos
-          </a>
-          <Link href="/tarjetas" className="flex items-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-500 hover:text-slate-700 border-b-2 border-transparent hover:border-slate-300 transition-all">
+          </span>
+          <Link href="/herramientas/tarjetas" className="flex items-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-500 hover:text-slate-700 border-b-2 border-transparent hover:border-slate-300 transition-all">
             <CreditCard size={15} />
             Tarjetas
           </Link>
