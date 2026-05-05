@@ -6,7 +6,7 @@ import {
   Instagram, Youtube, Linkedin, MessageCircle, ExternalLink,
   ChevronRight, Star, Calculator, ArrowRight, BookOpen,
   Briefcase, Scale, Users, Globe, Factory, CheckCircle2,
-  AlertCircle, Send, ChevronDown
+  AlertCircle, Send, ChevronDown, Languages, Award, Clock, Gift
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -427,6 +427,77 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Credenciales + Idiomas ────────────────────────────────────────────── */}
+      <section className="bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+
+          {/* Credential pills row */}
+          <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="flex flex-wrap items-center justify-center gap-3 py-8 border-b border-slate-100">
+            {[
+              { icon: <Award size={14} />, text: 'Abogado (UBA)', color: 'text-blue-700 bg-blue-50 border-blue-100' },
+              { icon: <Briefcase size={14} />, text: 'Planificador Financiero', color: 'text-teal-700 bg-teal-50 border-teal-100' },
+              { icon: <Shield size={14} />, text: 'Broker de Seguros', color: 'text-violet-700 bg-violet-50 border-violet-100' },
+              { icon: <Building2 size={14} />, text: 'Grupo Abax', color: 'text-slate-700 bg-slate-50 border-slate-200' },
+              { icon: <Globe size={14} />, text: 'Inversiones internacionales', color: 'text-emerald-700 bg-emerald-50 border-emerald-100' },
+              { icon: <Factory size={14} />, text: 'Financiamiento PyMEs & SGR', color: 'text-orange-700 bg-orange-50 border-orange-100' },
+            ].map(c => (
+              <span key={c.text} className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${c.color}`}>
+                {c.icon} {c.text}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Languages + free consult */}
+          <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="grid sm:grid-cols-2 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 py-8">
+
+            {/* Languages */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pb-6 sm:pb-0 sm:pr-8">
+              <div className="w-11 h-11 rounded-2xl bg-teal-50 border border-teal-100 flex items-center justify-center shrink-0">
+                <Languages size={20} className="text-teal-600" />
+              </div>
+              <div>
+                <p className="font-black text-slate-900 text-base mb-1 text-center sm:text-left">Hablo 5 idiomas</p>
+                <p className="text-slate-500 text-xs mb-3 text-center sm:text-left">Asesoramiento sin barreras de idioma para clientes locales e internacionales.</p>
+                {/* Update these flags/names if your 5 languages differ */}
+                <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                  {[
+                    { flag: '🇦🇷', lang: 'Español' },
+                    { flag: '🇺🇸', lang: 'Inglés' },
+                    { flag: '🇧🇷', lang: 'Portugués' },
+                    { flag: '🇮🇹', lang: 'Italiano' },
+                    { flag: '🇫🇷', lang: 'Francés' },
+                  ].map(l => (
+                    <span key={l.lang} className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-full">
+                      <span>{l.flag}</span> {l.lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Free consult */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 pt-6 sm:pt-0 sm:pl-8">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+                <Gift size={20} className="text-emerald-600" />
+              </div>
+              <div>
+                <p className="font-black text-slate-900 text-base mb-1 text-center sm:text-left">La primera consulta es <span className="text-emerald-600">100% gratuita</span></p>
+                <p className="text-slate-500 text-xs mb-3 text-center sm:text-left">
+                  No perdés nada. Solo invertís tiempo en entender mejor tus finanzas y las posibilidades que tenés hoy. Sin compromiso, sin letra chica.
+                </p>
+                <a href="#contacto">
+                  <Button size="sm" className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-xs gap-1.5 rounded-xl">
+                    <Clock size={12} /> Agendá tu consulta gratis
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Sobre mí ──────────────────────────────────────────────────────────── */}
       <section id="sobre-mi" className="py-20 px-4 sm:px-6 bg-slate-50">
         <div className="max-w-5xl mx-auto">
@@ -646,6 +717,32 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── "No perdés nada" banner ───────────────────────────────────────────── */}
+      <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+        className="bg-gradient-to-r from-emerald-600 to-teal-600 px-4 sm:px-6 py-10">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-center md:text-left">
+            <p className="text-white font-black text-2xl sm:text-3xl mb-1">La primera consulta es gratis.</p>
+            <p className="text-emerald-100 text-sm sm:text-base max-w-lg">
+              No perdés nada — solo invertís tiempo en entender mejor tus finanzas y las posibilidades que tenés hoy.
+              Sin compromiso, sin letra chica, sin costo.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 justify-center md:justify-end shrink-0">
+            <a href={`https://wa.me/${WA}?text=${encodeURIComponent('Hola Renzo! Quiero agendar mi consulta gratuita.')}`} target="_blank" rel="noopener noreferrer">
+              <Button className="bg-white text-emerald-700 hover:bg-emerald-50 font-bold gap-2 rounded-xl px-6 shadow-lg">
+                <MessageCircle size={15} /> Consultar por WhatsApp
+              </Button>
+            </a>
+            <a href="#contacto">
+              <Button variant="outline" className="border-white/40 text-white hover:bg-white/10 gap-2 rounded-xl px-6">
+                <Send size={14} /> Completar formulario
+              </Button>
+            </a>
+          </div>
+        </div>
+      </motion.div>
 
       {/* ── Contacto (formulario) ─────────────────────────────────────────────── */}
       <section id="contacto" className="py-20 px-4 sm:px-6 bg-slate-50">
