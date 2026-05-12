@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, AlertCircle, Send, ChevronDown } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Send, ChevronDown, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -49,6 +49,7 @@ export function ContactForm() {
   });
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+  const [consented, setConsented] = useState(false);
 
   const set = (k: keyof FormData) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -58,6 +59,10 @@ export function ContactForm() {
     e.preventDefault();
     if (!form.name.trim() || !form.objective || !form.occupation.trim()) {
       setError('Completá al menos nombre, ocupación y objetivo de la consulta.');
+      return;
+    }
+    if (!consented) {
+      setError('Necesitás aceptar el aviso de privacidad para continuar.');
       return;
     }
     setError('');
@@ -218,17 +223,48 @@ export function ContactForm() {
         </div>
       </div>
 
+      {/* Aviso de privacidad + consentimiento — Ley 25.326 */}
+      <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 space-y-3">
+        <div className="flex items-start gap-2.5 text-xs text-slate-600 leading-relaxed">
+          <ShieldCheck size={14} className="text-teal-600 shrink-0 mt-0.5" />
+          <p>
+            <strong className="text-slate-800">Aviso de privacidad:</strong> Los datos que ingresás se envían
+            directamente a WhatsApp como mensaje de texto y <strong>no se almacenan en ningún servidor</strong>.
+            Renzo Grecco los utilizará exclusivamente para responder tu consulta, conforme a la{' '}
+            <strong>Ley 25.326 de Protección de Datos Personales</strong>. Los campos de ingresos, estado civil e hijos
+            son opcionales y tienen como único fin ayudar a preparar una propuesta adecuada a tu situación.
+            Podés solicitar la eliminación de tus datos en cualquier momento contactando directamente a Renzo.
+          </p>
+        </div>
+        <label className="flex items-start gap-2.5 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={consented}
+            onChange={e => setConsented(e.target.checked)}
+            className="mt-0.5 w-4 h-4 accent-teal-500 shrink-0"
+          />
+          <span className="text-xs text-slate-700 leading-relaxed">
+            Entiendo que mis datos se envían a WhatsApp y serán usados exclusivamente para la consulta con Renzo Grecco.
+            Acepto el uso de mis datos conforme a la Ley 25.326.
+          </span>
+        </label>
+      </div>
+
       {error && (
         <div className="flex items-center gap-2 text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm">
           <AlertCircle size={14} /> {error}
         </div>
       )}
 
-      <Button type="submit" className="w-full bg-teal-500 hover:bg-teal-400 text-white font-bold gap-2 rounded-xl py-5 text-sm">
+      <Button
+        type="submit"
+        disabled={!consented}
+        className="w-full bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold gap-2 rounded-xl py-5 text-sm"
+      >
         <Send size={15} /> Enviar consulta por WhatsApp
       </Button>
       <p className="text-xs text-center text-slate-400">
-        Tu información es confidencial. Se abrirá WhatsApp con tu consulta ya armada.
+        Se abrirá WhatsApp con tu consulta ya redactada. No se guarda ningún dato en servidores.
       </p>
     </form>
   );
