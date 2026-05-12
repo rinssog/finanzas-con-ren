@@ -8,32 +8,70 @@ export interface BankRate {
   uva?: boolean;
 }
 
+// Tasas actualizadas mayo 2026 — fuentes: BNA, Provincia, BBVA, Macro, Santander, BCRA
 export const personalBanks: BankRate[] = [
-  { name: "Banco Nación", tna: 40, cft: 58, logo: "BNA" },
-  { name: "Banco Galicia", tna: 59, cft: 78, logo: "GAL" },
-  { name: "Santander", tna: 62, cft: 82, logo: "SAN" },
-  { name: "BBVA", tna: 64, cft: 85, logo: "BBV" },
-  { name: "Banco Macro", tna: 55, cft: 72, logo: "MAC" },
-  { name: "ICBC", tna: 60, cft: 79, logo: "ICB" },
-  { name: "Brubank", tna: 49, cft: 65, logo: "BRU" },
-  { name: "Mercado Crédito", tna: 45, cft: 61, logo: "MPC" },
-  { name: "Naranja X", tna: 68, cft: 90, logo: "NAR" },
-  { name: "Banco Ciudad", tna: 42, cft: 60, logo: "BCO" },
-  { name: "Banco Provincia", tna: 44, cft: 62, logo: "BPC" },
-  { name: "HSBC", tna: 66, cft: 87, logo: "HSB" },
-  { name: "Banco Supervielle", tna: 63, cft: 83, logo: "SUP" },
-  { name: "Banco Patagonia", tna: 58, cft: 77, logo: "PAT" },
+  { name: "Banco Ciudad",     tna: 70,  cft: 96,  logo: "BCO" }, // plan sueldo/jubilados
+  { name: "Banco Macro",      tna: 79,  cft: 151, logo: "MAC" }, // plan sueldo
+  { name: "Banco Nación",     tna: 85,  cft: 103, logo: "BNA" }, // tasa estándar mayo 2026
+  { name: "Banco Galicia",    tna: 85,  cft: 115, logo: "GAL" },
+  { name: "Santander",        tna: 85,  cft: 127, logo: "SAN" }, // TNA fija mayo 2026
+  { name: "Banco Provincia",  tna: 91,  cft: 140, logo: "BPC" }, // TEA 140.40%
+  { name: "ICBC",             tna: 90,  cft: 125, logo: "ICB" },
+  { name: "Banco Patagonia",  tna: 88,  cft: 120, logo: "PAT" },
+  { name: "HSBC",             tna: 95,  cft: 132, logo: "HSB" },
+  { name: "Banco Credicoop",  tna: 88,  cft: 118, logo: "CRE" },
+  { name: "Banco Supervielle",tna: 99,  cft: 213, logo: "SUP" }, // CFT con VAT 72 meses
+  { name: "Naranja X",        tna: 90,  cft: 130, logo: "NAR" }, // mínimo 59%, referencia 90%
+  { name: "Ualá",             tna: 120, cft: 200, logo: "UAL" },
+  { name: "BBVA",             tna: 132, cft: 250, logo: "BBV" }, // máximo perfil, mayo 2026
 ];
 
+// Créditos hipotecarios UVA — tasas fijas + ajuste UVA (inflación). Mayo 2026.
 export const hipotecarioBanks: BankRate[] = [
-  { name: "Banco Nación", tna: 3.5, cft: 4.8, logo: "BNA", uva: true },
-  { name: "Banco Ciudad", tna: 4.5, cft: 6.2, logo: "BCO", uva: true },
-  { name: "Banco Provincia", tna: 4.0, cft: 5.5, logo: "BPC", uva: true },
-  { name: "Banco Galicia", tna: 5.0, cft: 6.8, logo: "GAL", uva: true },
-  { name: "Santander", tna: 5.5, cft: 7.2, logo: "SAN", uva: true },
-  { name: "BBVA", tna: 5.75, cft: 7.5, logo: "BBV", uva: true },
-  { name: "Banco Macro", tna: 4.75, cft: 6.4, logo: "MAC", uva: true },
-  { name: "ICBC", tna: 5.25, cft: 7.0, logo: "ICB", uva: true },
-  { name: "Banco Supervielle", tna: 5.5, cft: 7.3, logo: "SUP", uva: true },
-  { name: "Banco Hipotecario", tna: 3.75, cft: 5.2, logo: "HIP", uva: true },
+  { name: "Banco Nación",      tna: 4.5,  cft: 6.0,  logo: "BNA", uva: true }, // mejor tasa del mercado
+  { name: "Banco Hipotecario", tna: 5.0,  cft: 7.0,  logo: "HIP", uva: true },
+  { name: "Banco Provincia",   tna: 5.0,  cft: 7.0,  logo: "BPC", uva: true },
+  { name: "Banco Ciudad",      tna: 5.5,  cft: 7.5,  logo: "BCO", uva: true },
+  { name: "Banco Galicia",     tna: 6.0,  cft: 8.5,  logo: "GAL", uva: true },
+  { name: "Banco Macro",       tna: 7.0,  cft: 9.5,  logo: "MAC", uva: true },
+  { name: "ICBC",              tna: 6.5,  cft: 9.0,  logo: "ICB", uva: true },
+  { name: "BBVA",              tna: 7.5,  cft: 10.0, logo: "BBV", uva: true }, // tasa vigente mayo 2026
+  { name: "Santander",         tna: 8.0,  cft: 11.0, logo: "SAN", uva: true },
+  { name: "Banco Supervielle", tna: 9.0,  cft: 12.0, logo: "SUP", uva: true },
 ];
+
+const LS_PERSONAL = 'rg_rates_personal';
+const LS_HIPOTECARIO = 'rg_rates_hipotecario';
+const LS_UPDATED_AT = 'rg_rates_updated_at';
+
+export function getDynamicPersonalBanks(): BankRate[] {
+  try {
+    const raw = localStorage.getItem(LS_PERSONAL);
+    if (raw) return JSON.parse(raw) as BankRate[];
+  } catch { /* fallback */ }
+  return personalBanks;
+}
+
+export function getDynamicHipotecarioBanks(): BankRate[] {
+  try {
+    const raw = localStorage.getItem(LS_HIPOTECARIO);
+    if (raw) return JSON.parse(raw) as BankRate[];
+  } catch { /* fallback */ }
+  return hipotecarioBanks;
+}
+
+export function getRatesLastUpdated(): string | null {
+  return localStorage.getItem(LS_UPDATED_AT);
+}
+
+export function saveRates(personal: BankRate[], hipotecario: BankRate[]): void {
+  localStorage.setItem(LS_PERSONAL, JSON.stringify(personal));
+  localStorage.setItem(LS_HIPOTECARIO, JSON.stringify(hipotecario));
+  localStorage.setItem(LS_UPDATED_AT, new Date().toISOString());
+}
+
+export function resetRates(): void {
+  localStorage.removeItem(LS_PERSONAL);
+  localStorage.removeItem(LS_HIPOTECARIO);
+  localStorage.removeItem(LS_UPDATED_AT);
+}

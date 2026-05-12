@@ -1,0 +1,8 @@
+node_modules
+.pnpm-store
+artifacts/comparador-prestamos/node_modules
+artifacts/comparador-prestamos/dist
+.claude
+*.log
+.env
+.env.local

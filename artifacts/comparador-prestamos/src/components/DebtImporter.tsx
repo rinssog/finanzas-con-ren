@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload, FileText, Image as ImageIcon, X, Plus, CheckCircle2,
   AlertTriangle, HelpCircle, ChevronRight, ChevronDown, ChevronUp,
-  Trash2, Sparkles, CreditCard, Eye
+  Trash2, Sparkles, CreditCard, Eye, ShieldCheck, Lock, Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -539,7 +539,13 @@ function AnalysisPanel({ debts }: { debts: ImportedDebt[] }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function DebtImporter() {
+interface DebtImporterProps {
+  isPaid?: boolean;
+  onPayForAnalysis?: () => void;
+  paying?: boolean;
+}
+
+export function DebtImporter({ isPaid = false, onPayForAnalysis, paying = false }: DebtImporterProps) {
   const [slots, setSlots] = useState<FileSlot[]>([]);
   const [confirmedDebts, setConfirmedDebts] = useState<ImportedDebt[]>([]);
   const [showGuideOnly, setShowGuideOnly] = useState(false);
@@ -655,6 +661,19 @@ export function DebtImporter() {
         </div>
 
         <div className="p-6 space-y-5">
+          {/* Privacy notice */}
+          <div className="flex items-start gap-3 bg-teal-50 border border-teal-100 rounded-xl px-4 py-3.5">
+            <ShieldCheck size={16} className="text-teal-600 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-xs font-bold text-teal-800">Tu privacidad está completamente protegida</p>
+              <p className="text-xs text-teal-700 mt-0.5 leading-relaxed">
+                Los resúmenes que subís se procesan <strong>únicamente en tu navegador</strong> y nunca se envían a ningún servidor.
+                No almacenamos tus saldos, datos de tarjetas ni información financiera personal.
+                El único dato que se guarda, si así lo elegís, es el del <strong>formulario de contacto</strong> para coordinar una consulta con Renzo.
+              </p>
+            </div>
+          </div>
+
           {/* Visual guide */}
           <AnimatePresence>
             {showGuideOnly && (
@@ -705,8 +724,8 @@ export function DebtImporter() {
         </label>
       )}
 
-      {/* Analysis */}
-      {confirmedDebts.length > 0 && (
+      {/* Analysis — gated */}
+      {confirmedDebts.length > 0 && isPaid && (
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center">
@@ -722,6 +741,52 @@ export function DebtImporter() {
           <AnalysisPanel debts={confirmedDebts} />
         </div>
       )}
+
+      {/* Locked teaser when debts confirmed but not paid */}
+      {confirmedDebts.length > 0 && !isPaid && (() => {
+        const totalDebt = confirmedDebts.reduce((s, d) => s + d.balance, 0);
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-2xl border-2 border-teal-100 shadow-sm overflow-hidden"
+          >
+            <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-6 py-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center">
+                  <Sparkles size={16} className="text-teal-400" />
+                </div>
+                <div>
+                  <p className="text-white font-black text-sm">Análisis listo para {confirmedDebts.length} tarjeta{confirmedDebts.length > 1 ? 's' : ''}</p>
+                  <p className="text-white/50 text-xs">Deuda total detectada: <span className="text-rose-400 font-bold">${totalDebt.toLocaleString('es-AR')}</span></p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {['Bola de nieve vs. Avalancha', 'Gráfico de evolución', 'Estrategia óptima', 'Ahorro en intereses'].map(f => (
+                  <span key={f} className="flex items-center gap-1 text-xs font-semibold text-white/60 bg-white/10 border border-white/10 px-2.5 py-1 rounded-full">
+                    <Lock size={9} /> {f}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="px-6 py-4 bg-slate-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-bold text-slate-800">Desbloqueá el análisis completo</p>
+                <p className="text-xs text-slate-500">Pago único de $1.000 ARS por Mercado Pago · Acceso inmediato</p>
+              </div>
+              <Button
+                onClick={onPayForAnalysis}
+                disabled={paying}
+                className="shrink-0 bg-teal-500 hover:bg-teal-400 text-white font-black gap-2 rounded-xl"
+              >
+                {paying
+                  ? <><Loader2 size={13} className="animate-spin" /> Procesando...</>
+                  : <><Lock size={13} /> Ver análisis — $1.000 ARS</>}
+              </Button>
+            </div>
+          </motion.div>
+        );
+      })()}
 
       {/* Empty state for analysis */}
       {slots.length > 0 && confirmedDebts.length === 0 && (

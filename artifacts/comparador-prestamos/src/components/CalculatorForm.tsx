@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -11,7 +11,7 @@ import { AmortizationMethod } from '@/lib/calculations';
 import { formatCurrency } from '@/lib/calculations';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Info } from 'lucide-react';
+import { ChevronDown, ChevronUp, Info } from 'lucide-react';
 
 const formSchema = z.object({
   loanType: z.enum(['personal', 'hipotecario']),
@@ -31,6 +31,9 @@ interface CalculatorFormProps {
   setMonths: (months: number) => void;
   method: AmortizationMethod;
   setMethod: (method: AmortizationMethod) => void;
+  onCompare?: () => void;
+  compareLabel?: string;
+  compareLoading?: boolean;
 }
 
 const METHOD_INFO: Record<AmortizationMethod, { label: string; desc: string }> = {
@@ -48,7 +51,8 @@ const METHOD_INFO: Record<AmortizationMethod, { label: string; desc: string }> =
   }
 };
 
-export function CalculatorForm({ loanType, setLoanType, amount, setAmount, months, setMonths, method, setMethod }: CalculatorFormProps) {
+export function CalculatorForm({ loanType, setLoanType, amount, setAmount, months, setMonths, method, setMethod, onCompare, compareLabel, compareLoading }: CalculatorFormProps) {
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const personalMonths = [6, 12, 18, 24, 36, 48, 60];
   const hipotecarioMonths = [60, 120, 180, 240];
 
@@ -100,8 +104,8 @@ export function CalculatorForm({ loanType, setLoanType, amount, setAmount, month
     <Card className="border-none shadow-lg bg-white overflow-hidden">
       <div className="h-2 bg-accent w-full" />
       <CardHeader className="pb-4">
-        <CardTitle className="text-2xl text-primary">Simulá tu préstamo</CardTitle>
-        <CardDescription className="text-base text-slate-500">Ingresá los datos para encontrar la mejor opción del mercado.</CardDescription>
+        <CardTitle className="text-2xl text-primary">Compará y elegí el mejor préstamo</CardTitle>
+        <CardDescription className="text-base text-slate-500">Ingresá el monto y plazo — te mostramos cuál banco te cobra menos.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -126,43 +130,54 @@ export function CalculatorForm({ loanType, setLoanType, amount, setAmount, month
               )}
             />
 
-            {/* Método de amortización */}
-            <FormField
-              control={form.control}
-              name="method"
-              render={({ field }) => (
-                <FormItem className="flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <FormLabel className="text-base font-semibold">Método de amortización</FormLabel>
-                    <Info
-                      size={15}
-                      className="text-slate-400 cursor-help"
-                      title="El método define cómo se divide cada cuota entre capital e intereses, y cómo varía el monto mensual."
-                    />
-                  </div>
-                  <FormControl>
-                    <div className="grid grid-cols-3 gap-3">
-                      {(Object.keys(METHOD_INFO) as AmortizationMethod[]).map((m) => (
-                        <button
-                          key={m}
-                          type="button"
-                          onClick={() => field.onChange(m)}
-                          data-testid={`method-${m}`}
-                          className={`rounded-xl border-2 px-4 py-3 text-left transition-all cursor-pointer ${
-                            field.value === m
-                              ? 'border-accent bg-accent/10 text-primary shadow-sm'
-                              : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
-                          }`}
-                        >
-                          <div className="font-bold text-sm mb-1">{METHOD_INFO[m].label}</div>
-                          <div className="text-xs text-slate-500 leading-tight">{METHOD_INFO[m].desc}</div>
-                        </button>
-                      ))}
-                    </div>
-                  </FormControl>
-                </FormItem>
+            {/* Opciones avanzadas — colapsable */}
+            <div className="border border-slate-200 rounded-xl overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(v => !v)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors text-sm text-slate-600 font-medium"
+              >
+                <span className="flex items-center gap-2">
+                  <Info size={14} className="text-slate-400" />
+                  Opciones avanzadas — método de amortización
+                </span>
+                {showAdvanced ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
+              </button>
+
+              {showAdvanced && (
+                <div className="px-4 py-4 bg-white">
+                  <FormField
+                    control={form.control}
+                    name="method"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col gap-3">
+                        <p className="text-xs text-slate-400 -mt-1">El método define cómo se divide cada cuota. El <strong>Francés</strong> es el más común en Argentina.</p>
+                        <FormControl>
+                          <div className="grid grid-cols-3 gap-3">
+                            {(Object.keys(METHOD_INFO) as AmortizationMethod[]).map((m) => (
+                              <button
+                                key={m}
+                                type="button"
+                                onClick={() => field.onChange(m)}
+                                data-testid={`method-${m}`}
+                                className={`rounded-xl border-2 px-4 py-3 text-left transition-all cursor-pointer ${
+                                  field.value === m
+                                    ? 'border-accent bg-accent/10 text-primary shadow-sm'
+                                    : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                                }`}
+                              >
+                                <div className="font-bold text-sm mb-1">{METHOD_INFO[m].label}</div>
+                                <div className="text-xs text-slate-500 leading-tight">{METHOD_INFO[m].desc}</div>
+                              </button>
+                            ))}
+                          </div>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
               )}
-            />
+            </div>
 
             {/* Monto + Plazo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -224,8 +239,14 @@ export function CalculatorForm({ loanType, setLoanType, amount, setAmount, month
               />
             </div>
 
-            <Button type="button" className="w-full md:w-auto md:self-end h-12 px-8 text-lg font-bold" data-testid="button-compare">
-              Comparar Ofertas
+            <Button
+              type="button"
+              className="w-full md:w-auto md:self-end h-12 px-8 text-lg font-bold"
+              data-testid="button-compare"
+              onClick={onCompare}
+              disabled={compareLoading}
+            >
+              {compareLoading ? 'Redirigiendo a Mercado Pago...' : (compareLabel || 'Comparar Ofertas')}
             </Button>
           </form>
         </Form>

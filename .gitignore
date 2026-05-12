@@ -47,3 +47,11 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+.vercel
+.env
+.env.local
+*.env
+artifacts/comparador-prestamos/.env
+artifacts/comparador-prestamos/server.js
+.claude/

@@ -4,27 +4,9 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
-
+const rawPort = process.env.PORT ?? '5173';
 const port = Number(rawPort);
-
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
-const basePath = process.env.BASE_PATH;
-
-if (!basePath) {
-  throw new Error(
-    "BASE_PATH environment variable is required but was not provided.",
-  );
-}
+const basePath = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   base: basePath,
@@ -57,12 +39,34 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Separar vendors pesados en chunks propios para mejor caché
+          if (id.includes('node_modules')) {
+            if (id.includes('framer-motion'))  return 'vendor-motion';
+            if (id.includes('pdfjs-dist'))     return 'vendor-pdf';
+            if (id.includes('react-dom') || id.includes('react/'))  return 'vendor-react';
+            if (id.includes('lucide-react'))   return 'vendor-icons';
+            if (id.includes('@radix-ui'))      return 'vendor-ui';
+            if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) return 'vendor-forms';
+          }
+        },
+      },
+    },
   },
   server: {
     port,
     strictPort: true,
     host: "0.0.0.0",
     allowedHosts: true,
+    proxy: {
+      '/api': {
+        target: `http://localhost:${process.env.API_PORT ?? '3001'}`,
+        changeOrigin: true,
+      },
+    },
     fs: {
       strict: true,
     },
