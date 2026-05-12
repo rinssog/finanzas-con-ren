@@ -44,12 +44,12 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           // Separar vendors pesados en chunks propios para mejor caché
+          // NOTA: @radix-ui NO se separa para evitar circular dependency con react-dom
           if (id.includes('node_modules')) {
             if (id.includes('framer-motion'))  return 'vendor-motion';
             if (id.includes('pdfjs-dist'))     return 'vendor-pdf';
-            if (id.includes('react-dom') || id.includes('react/'))  return 'vendor-react';
+            if (id.includes('react-dom') || id.includes('react/') || id.includes('@radix-ui')) return 'vendor-react';
             if (id.includes('lucide-react'))   return 'vendor-icons';
-            if (id.includes('@radix-ui'))      return 'vendor-ui';
             if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) return 'vendor-forms';
           }
         },
